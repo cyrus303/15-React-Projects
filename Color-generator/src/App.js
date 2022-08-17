@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SingleColor from './SingleColor';
 
 import Values from 'values.js';
@@ -6,7 +6,18 @@ import Values from 'values.js';
 function App() {
   const [color, setColor] = useState('');
   const [error, setError] = useState(false);
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(new Values('#f15025').all(10));
+
+  // useEffect(() => {
+  //   try {
+  //     let colors = new Values('#f15025').all(10);
+  //     setList(colors);
+  //     console.log(colors);
+  //   } catch (error) {
+  //     setError(true);
+  //     console.log(error);
+  //   }
+  // }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
