@@ -16,10 +16,35 @@ const initialState = {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  function clearCart() {
+    dispatch({ type: 'CLEAR_CART' });
+  }
+
+  function remove(id) {
+    dispatch({ type: 'REMOVE', payload: id });
+  }
+
+  function increase(id) {
+    dispatch({ type: 'INCREASE', payload: id });
+  }
+
+  function decrease(id) {
+    dispatch({ type: 'DECREASE', payload: id });
+  }
+
+  useEffect(() => {
+    dispatch({ type: 'GET_TOTAlS' });
+    console.log('use-effect');
+  }, [state.cart]);
+
   return (
     <AppContext.Provider
       value={{
         ...state,
+        clearCart,
+        remove,
+        increase,
+        decrease,
       }}
     >
       {children}
