@@ -3,14 +3,14 @@ import cartItems from './data';
 import reducer from './reducer';
 // ATTENTION!!!!!!!!!!
 // I SWITCHED TO PERMANENT DOMAIN
-const url = 'https://course-api.com/react-useReducer-cart-project';
+const URL = 'https://course-api.com/react-useReducer-cart-project';
 const AppContext = React.createContext();
 
 const initialState = {
   loading: false,
   cart: cartItems,
   total: 0,
-  amount: 1,
+  amount: 0,
 };
 
 const AppProvider = ({ children }) => {
@@ -32,9 +32,19 @@ const AppProvider = ({ children }) => {
     dispatch({ type: 'DECREASE', payload: id });
   }
 
+  async function fetchData() {
+    dispatch({ type: 'LOADING' });
+    const response = await fetch(URL);
+    const cart = await response.json();
+    dispatch({ type: 'DISPLAY_ITEMS', payload: cart });
+  }
+
   useEffect(() => {
-    dispatch({ type: 'GET_TOTAlS' });
-    console.log('use-effect');
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    dispatch({ type: 'GET_TOTALS' });
   }, [state.cart]);
 
   return (
