@@ -9,7 +9,7 @@ const AppContext = React.createContext();
 const initialState = {
   loading: false,
   cart: cartItems,
-  total: 0,
+  total: 1,
   amount: 0,
 };
 
